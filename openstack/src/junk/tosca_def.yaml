@@ -1,0 +1,41 @@
+tosca_definitions_version: tosca_simple_yaml_1_0
+
+description: >
+  TOSCA simple profile with 1 server bound to a new network
+
+topology_template:
+
+  inputs:
+    network_name:
+      type: string
+      description: Network name
+
+  node_templates:
+    myserver:
+      type: tosca.nodes.Compute
+      capabilities:
+        host:
+          properties:
+            disk_size: 128 GB
+            num_cpus: 1
+            mem_size: 2048 MB
+        os:
+          properties:
+            type: n1-standard-1
+            distribution: ubuntu-1710-artful-v20180405
+
+
+    mynetwork:
+      type: tosca.nodes.network.Network
+      properties:
+        ip_version: 4
+        cidr: '192.168.0.0/24'
+        start_ip: '192.168.0.50'
+        end_ip: '192.168.0.200'
+        gateway_ip: '192.168.0.1'
+
+    myport:
+      type: tosca.nodes.network.Port
+      requirements:
+        - binding: myserver
+        - link: mynetwork
