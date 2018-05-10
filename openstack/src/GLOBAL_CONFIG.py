@@ -12,8 +12,8 @@ config = loader.OpenStackConfig()
 cloud = conn=openstack.connect(
             auth_url='https://openstack.tacc.chameleoncloud.org:5000/v2.0',
             project_name='CH-819892',
-            username='drobin',
-            password='cloud_KENT',
+            username='user',
+            password='pass',
             region_name='RegionOne',
             app_name='examples',
             app_version='1.0',
